@@ -1,1 +1,2 @@
-# fullstack todo app made with next.js, flask and postgresql
+# fullstack todo app 
+- made with next.js, flask and postgresql
