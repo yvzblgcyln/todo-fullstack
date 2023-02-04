@@ -1,0 +1,234 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap");
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+}
+
+a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+textarea {
+  width: 100%;
+}
+.df-row {
+  display: flex;
+  flex-direction: row;
+}
+.df-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.layout {
+  width: 100%;
+  height: 100vh;
+}
+
+// navbar --------------------------------------------
+.navbar-todo {
+  position: sticky;
+  top: 0;
+  color: white;
+  font-size: 14px;
+  width: 100%;
+  height: 44px;
+  background-color: #026aa7;
+  padding: 10px;
+  cursor: default;
+  align-items: center;
+  justify-content: space-between;
+  ._icon-nav {
+    color: white;
+    padding: 7px;
+    font-size: 18px !important;
+    &:nth-child(3) {
+      font-size: 20px;
+    }
+  }
+  .create {
+    padding: 7px;
+    background-color: #172b4d;
+    border-radius: 7px;
+  }
+  .left {
+    gap: 12px;
+    align-items: center;
+    .logo {
+      font-weight: 800;
+      padding: 7px;
+      gap: 5px;
+      font-size: 18px;
+    }
+    .menu-container {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      padding: 7px;
+      border-radius: 7px;
+      &:hover {
+        background-color: #172b4d;
+      }
+    }
+  }
+  .right {
+    align-items: center;
+    gap: 10px;
+    .input-area {
+      align-items: center;
+      gap: 10px;
+      input {
+        padding: 7px;
+        background-color: #3588b9;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        &::placeholder {
+          color: white;
+        }
+      }
+    }
+    .user {
+      margin: 0 10px 0 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 10px;
+      background-color: orange;
+      color: #172b4d;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+}
+
+//sidebar  --------------------------------------------
+._sidebar {
+  margin-top: -30px;
+  font-size: 14px;
+  font-weight: 800;
+  width: 200px;
+  color: #1283c3;
+  padding: 46px 22px;
+  font-weight: 700;
+  gap: 5px;
+  cursor: default;
+  color: #172b4d;
+
+  hr {
+    width: 100%;
+    border: none;
+    height: 1px;
+    background-color: #e4e4e5;
+  }
+  .tab-cont {
+    background-color: white;
+    border-radius: 7px;
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+    &:hover {
+      background-color: #eeeeee;
+    }
+  }
+  .active {
+    background-color: #e4f0f6;
+    border-radius: 7px;
+    color: #0079bf;
+    &:hover {
+      background-color: #e4f0f6;
+    }
+  }
+  .trello-menu {
+    margin: 20px 0 20px 0;
+    gap: 10px;
+    align-items: center;
+    .icon {
+      background-color: #007f54;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border-radius: 4px;
+    }
+  }
+  .submenu {
+    .submenu-cont {
+      padding: 10px;
+      gap: 10px;
+      align-items: center;
+      color: #949ead;
+    }
+  }
+  .add-area {
+    justify-content: space-between;
+    align-items: center;
+    .plus {
+      cursor: pointer;
+      background-color: rgb(200, 200, 200);
+      border-radius: 7px;
+      font-size: 24px;
+    }
+  }
+}
+
+.app {
+  gap: 30px;
+  padding: 30px 0;
+  flex-wrap: wrap;
+  height: 0;
+  .add {
+    display: flex;
+    align-items: center;
+    justify-content: center !important;
+    font-size: 40px;
+    cursor: pointer;
+  }
+  .todo {
+    padding: 9px;
+    border-radius: 7px;
+    background-color: rgb(205, 205, 205);
+    min-width: 100px;
+    max-width: 200px;
+    height: 100px;
+    justify-content: space-between;
+    .text {
+      cursor: pointer;
+    }
+    .buttons {
+      cursor: pointer;
+      justify-content: space-between;
+    }
+  }
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between !important;
+}
+
+._login {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  height: calc(100vh - 44px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  a {
+    text-decoration: underline !important;
+  }
+}
