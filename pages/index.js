@@ -17,11 +17,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    //dispatch(fetchData());
-    console.log(todos);
-    fetch("http://localhost:5000/get")
-      .then((res) => res.json())
-      .then((data) => dispatch(setTodos(data)));
+    dispatch(fetchData());
+    // fetch("http://localhost:5000/get")
+    //   .then((res) => res.json())
+    //   .then((data) => dispatch(setTodos(data)));
   }, []);
 
   const handleToggle = (index, id) => {

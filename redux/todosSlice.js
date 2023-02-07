@@ -10,9 +10,7 @@ export const todosSlice = createSlice({
   initialState: [],
   reducers: {
     setTodos: (state, action) => {
-      action.payload.map((item) => {
-        state.push(item);
-      });
+      for (let i = 0; i < action.payload.length; i++) state[i] = action.payload[i];
     },
     addTodo: (state, action) => {
       state.push(action.payload);
@@ -29,8 +27,7 @@ export const todosSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchData.fulfilled, (state, action) => {
-      state = action.payload;
-      console.log("state:", state);
+      for (let i = 0; i < action.payload.length; i++) state[i] = action.payload[i];
     });
   },
 });
