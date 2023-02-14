@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 
 function Register() {
   const [input, setInput] = useState({});
-  const [status, setStatus] = useState(0);
   const router = useRouter();
+  const [message, setMessage] = useState();
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -20,9 +20,8 @@ function Register() {
       },
       body: JSON.stringify(input),
     })
-      .then((res) => setStatus(res.status))
-      //.then(() => setInput({ email: "", username: "", password: "" }))
-      .then(() => status === 200 && router.push("/login"));
+      .then((res) => res.json())
+      .then((data) => (data.status === 200 ? router.push("/login") : setMessage(data.message)));
   };
 
   return (
@@ -56,7 +55,7 @@ function Register() {
       </Form>
       <Link href="/login">Login</Link>
       <Link href="/">Home</Link>
-      {status !== 200 && status !== 0 && <div style={{ color: "red" }}>Username or email is already taken</div>}
+      {message && <div style={{ color: "red" }}>{message}</div>}
     </div>
   );
 }

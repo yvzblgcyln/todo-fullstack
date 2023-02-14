@@ -2,11 +2,14 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 # from models import db
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123456789@localhost/todos'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 
 class Todo (db.Model):
@@ -24,11 +27,13 @@ class User (db.Model):
     email = db.Column(db.String(100), nullable=False)
     username = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
+    password_hash = db.Column(db.String(1000), nullable=False)
 
-    def __init__(self, email, username, password):
+    def __init__(self, email, username, password, password_hash):
         self.email = email
         self.username = username
         self.password = password
+        self.password_hash = password_hash
 
 
 with app.app_context():
@@ -96,9 +101,18 @@ def register():
     username = request.json["username"]
     password = request.json["password"]
 
-    db.session.add(User(email, username, password))
-    db.session.commit()
-    return "registered"
+    email_filtered = User.query.filter_by(email=email).first()
+    user_filtered = User.query.filter_by(username=username).first()
+
+    if (email_filtered):
+        return jsonify({'message': "Email is already taken"})
+    elif (user_filtered):
+        return jsonify({'message': "Username is already taken"})
+    else:
+        password_hash = bcrypt.generate_password_hash(password).decode("utf-8")
+        db.session.add(User(email, username, password, password_hash))
+        db.session.commit()
+        return jsonify({"status": 200, 'message': 'registered'})
 
 
 @app.route("/login", methods=['POST'])
@@ -109,8 +123,8 @@ def login():
     user = User.query.filter_by(username=username).first()
 
     if (user):
-        if (password == user.password):
-            return jsonify({"status": 200, 'message': 'You are logged in successfully', "user": user.username})
+        if (bcrypt.check_password_hash(user.password_hash, password)):
+            return jsonify({"status": 200, "user": user.username})
         else:
             return jsonify({'message': 'Wrong password'})
     else:
