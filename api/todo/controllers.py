@@ -1,44 +1,6 @@
 from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
-# from models import db
-from flask_bcrypt import Bcrypt
-
-app = Flask(__name__)
-CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123456789@localhost/todos'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-
-
-class Todo (db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    todo = db.Column(db.String(100), nullable=False)
-    completed = db.Column(db.Boolean)
-
-    def __init__(self, todo, completed):
-        self.todo = todo
-        self.completed = completed
-
-
-class User (db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), nullable=False)
-    username = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(100), nullable=False)
-    password_hash = db.Column(db.String(1000), nullable=False)
-
-    def __init__(self, email, username, password, password_hash):
-        self.email = email
-        self.username = username
-        self.password = password
-        self.password_hash = password_hash
-
-
-with app.app_context():
-    db.create_all()
-
+from todo import app,db,bcrypt
+from models import Todo, User
 
 @app.route('/add', methods=['POST'])
 def add():
@@ -129,7 +91,3 @@ def login():
             return jsonify({'message': 'Wrong password'})
     else:
         return jsonify({'message': 'Invalid username'})
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
